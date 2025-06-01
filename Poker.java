@@ -40,9 +40,28 @@ public class Poker {
         
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine().trim();
-            if (line.isEmpty()) continue;
-            
-            System.out.println("Read line: " + line);
+            if (line.isEmpty()) {
+                continue;
+            }
+
+            String[] cards = line.split(" ");
+            if (cards.length != 10) {
+                continue;
+            }
+
+            // Parsing player 1's hand
+            List<Card> p1Cards = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+                p1Cards.add(new Card(cards[i]));
+            }
+            Hand handOne = new Hand(p1Cards);
+
+            // Parsing player 2's hand
+            List<Card> p2Cards = new ArrayList<>();
+            for (int i = 5; i < 10; i++) {
+                p2Cards.add(new Card(cards[i]));
+            }
+            Hand handTwo = new Hand(p2Cards);
         }
         scanner.close();
     }
