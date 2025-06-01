@@ -41,9 +41,26 @@ public class Poker {
     }
     static class Hand {
         List<Card> cards;
-        
+        int rank;
+        List<Integer> tie;
+
         Hand(List<Card> cards) {
             this.cards = cards;
+            this.tie = new ArrayList<>();
+            evaluateHand();
+        }
+
+        private void evaluateHand() {
+            cards.sort((a ,b) -> b.value - a.value);
+
+            Map<Integer, Integer> valueCount = new HashMap<>();
+            Map<Character, Integer> suitCount = new HashMap<>();
+
+            for (Card card : cards) {
+                valueCount.put(card.value, valueCount.getOrDefault(card.value, 0) + 1);
+                suitCount.put(card.suit, suitCount.getOrDefault(card.suit, 0) + 1);
+            }
+
         }
     }
 
