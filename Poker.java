@@ -137,6 +137,21 @@ public class Poker {
             }
             return true;
         }
+
+        public int compare(Hand other) {
+            if (this.rank != other.rank) {
+                return this.rank - other.rank;
+            }
+            
+            // Comparison during a tie
+            for (int i = 0; i < Math.min(this.tie.size(), other.tie.size()); i++) {
+                if (!this.tie.get(i).equals(other.tie.get(i))) {
+                    return this.tie.get(i) - other.tie.get(i);
+                }
+            }
+            
+            return 0;
+        }
     }
 
     public static void main(String[] args) {
