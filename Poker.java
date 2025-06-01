@@ -61,6 +61,30 @@ public class Poker {
                 suitCount.put(card.suit, suitCount.getOrDefault(card.suit, 0) + 1);
             }
 
+            // make value counts into pairs so that it's more iterable
+            List<Map.Entry<Integer, Integer>> valuePairs = new ArrayList<>(valueCount.entrySet());
+            valuePairs.sort((a, b) -> {
+                if (b.getValue() != a.getValue()) {
+                    return b.getValue() - a.getValue();
+                }
+                return b.getKey() - a.getKey();
+            });
+            
+             // Determine hand rank
+            if (valuePairs.get(0).getValue() == 2) {
+                rank = PAIR;
+                tie.add(valuePairs.get(0).getKey());
+                for (Map.Entry<Integer, Integer> entry : valuePairs) {
+                    if (entry.getValue() == 1) {
+                        tie.add(entry.getKey());
+                    }
+                }
+            } else {
+                rank = HIGH_CARD;
+                for (Card card : cards) {
+                    tie.add(card.value);
+                }
+            }
         }
     }
 
