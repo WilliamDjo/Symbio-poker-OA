@@ -77,7 +77,14 @@ public class Poker {
             });
             
              // Determine hand rank
-            if (valuePairs.get(0).getValue() == 4) {
+            if (isStraight && isFlush) {
+                if (cards.get(0).value == 14 && cards.get(4).value == 10) {
+                    rank = ROYAL_FLUSH;
+                } else {
+                    rank = STRAIGHT_FLUSH;
+                }
+                tie.add(cards.get(0).value);
+            } else if (valuePairs.get(0).getValue() == 4) {
                 rank = FOUR_OF_A_KIND;
                 tie.add(valuePairs.get(0).getKey());
                 tie.add(valuePairs.get(1).getKey());
