@@ -21,9 +21,10 @@ public class Poker {
     static class Card {
         int value;
         char suit;
-
+        
         Card(String card) {
-
+            this.value = CARD_VALUE_MAP.get(card.charAt(0));
+            this.suit = card.charAt(0);
         }
     }
     static class Hand {
