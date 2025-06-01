@@ -71,7 +71,20 @@ public class Poker {
             });
             
              // Determine hand rank
-            if (valuePairs.get(0).getValue() == 2) {
+            if (valuePairs.get(0).getValue() == 3) {
+                rank = THREE_OF_A_KIND;
+                tie.add(valuePairs.get(0).getKey());
+                for (Map.Entry<Integer, Integer> entry : valuePairs) {
+                    if (entry.getValue() == 1) {
+                        tie.add(entry.getKey());
+                    }
+                }
+            } else if (valuePairs.get(0).getValue() == 2 && valuePairs.get(1).getValue() == 2) {
+                rank = TWO_PAIR;
+                tie.add(Math.max(valuePairs.get(0).getKey(), valuePairs.get(1).getKey()));
+                tie.add(Math.min(valuePairs.get(0).getKey(), valuePairs.get(1).getKey()));
+                tie.add(valuePairs.get(2).getKey());
+            } else if (valuePairs.get(0).getValue() == 2) {
                 rank = PAIR;
                 tie.add(valuePairs.get(0).getKey());
                 for (Map.Entry<Integer, Integer> entry : valuePairs) {
