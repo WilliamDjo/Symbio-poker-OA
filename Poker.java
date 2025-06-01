@@ -156,6 +156,8 @@ public class Poker {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        int player1WinCount = 0;
+        int player2WinCount = 0;
         
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine().trim();
@@ -181,8 +183,20 @@ public class Poker {
                 p2Cards.add(new Card(cards[i]));
             }
             Hand handTwo = new Hand(p2Cards);
+
+            // Compare hands  
+            int result = handOne.compare(handTwo);
+            if (result > 0) {
+                player1WinCount++;
+            } else if (result < 0) {
+                player2WinCount++;
+            }
         }
         scanner.close();
+
+        // Output results
+        System.out.println("Player 1: " + player1WinCount + " hands");
+        System.out.println("Player 2: " + player2WinCount + " hands");
     }
 }
 
