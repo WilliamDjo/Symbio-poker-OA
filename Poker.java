@@ -26,6 +26,13 @@ public class Poker {
 
         }
     }
+    static class Hand {
+        List<Card> cards;
+        
+        Hand(List<Card> cards) {
+            this.cards = cards;
+        }
+    }
 
     public static void main(String[] args) {
     
