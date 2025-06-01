@@ -77,7 +77,15 @@ public class Poker {
             });
             
              // Determine hand rank
-            if (isFlush) {
+            if (valuePairs.get(0).getValue() == 4) {
+                rank = FOUR_OF_A_KIND;
+                tie.add(valuePairs.get(0).getKey());
+                tie.add(valuePairs.get(1).getKey());
+            } else if (valuePairs.get(0).getValue() == 3 && valuePairs.get(1).getValue() == 2) {
+                rank = FULL_HOUSE;
+                tie.add(valuePairs.get(0).getKey());
+                tie.add(valuePairs.get(1).getKey());
+            } else if (isFlush) {
                 rank = FLUSH;
                 for (Card card : cards) {
                     tie.add(card.value);
