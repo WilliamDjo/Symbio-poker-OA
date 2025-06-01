@@ -61,6 +61,9 @@ public class Poker {
                 suitCount.put(card.suit, suitCount.getOrDefault(card.suit, 0) + 1);
             }
 
+            // Check for straight
+            boolean isStraight = checkStraight(cards);
+
             // make value counts into pairs so that it's more iterable
             List<Map.Entry<Integer, Integer>> valuePairs = new ArrayList<>(valueCount.entrySet());
             valuePairs.sort((a, b) -> {
@@ -71,7 +74,10 @@ public class Poker {
             });
             
              // Determine hand rank
-            if (valuePairs.get(0).getValue() == 3) {
+            if (isStraight) {
+                rank = STRAIGHT;
+                tie.add(cards.get(0).value);
+            } else if (valuePairs.get(0).getValue() == 3) {
                 rank = THREE_OF_A_KIND;
                 tie.add(valuePairs.get(0).getKey());
                 for (Map.Entry<Integer, Integer> entry : valuePairs) {
@@ -98,6 +104,15 @@ public class Poker {
                     tie.add(card.value);
                 }
             }
+        }
+
+        private boolean checkStraight(List<Card> cards) {
+            for (int i = 0; i < cards.size() - 1; i++) {
+                if (cards.get(i).value - cards.get(i + 1).value != 1) {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 
