@@ -64,6 +64,9 @@ public class Poker {
             // Check for straight
             boolean isStraight = checkStraight(cards);
 
+            // Check for flush
+            boolean isFlush = suitCount.size() == 1;
+
             // make value counts into pairs so that it's more iterable
             List<Map.Entry<Integer, Integer>> valuePairs = new ArrayList<>(valueCount.entrySet());
             valuePairs.sort((a, b) -> {
@@ -74,7 +77,12 @@ public class Poker {
             });
             
              // Determine hand rank
-            if (isStraight) {
+            if (isFlush) {
+                rank = FLUSH;
+                for (Card card : cards) {
+                    tie.add(card.value);
+                }
+            } else if (isStraight) {
                 rank = STRAIGHT;
                 tie.add(cards.get(0).value);
             } else if (valuePairs.get(0).getValue() == 3) {
